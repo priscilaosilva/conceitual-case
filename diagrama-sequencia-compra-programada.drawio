@@ -1,0 +1,392 @@
+<mxfile host="app.diagrams.net" modified="2026-02-26T01:22:00.000Z" agent="Devin" version="21.0.0" type="device">
+  <diagram id="sequencia-motor-compra" name="Sequencia - Motor de Compra">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- TITULO -->
+        <mxCell id="title" value="&lt;b&gt;Diagrama de Sequencia - Motor de Compra Programada&lt;/b&gt;&lt;br&gt;Fluxo executado nos dias uteis &gt;= 5, 15 e 25 de cada mes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="10" width="520" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- PARTICIPANTES (lifelines) -->
+        <mxCell id="p_scheduler" value="&lt;b&gt;Scheduler&lt;/b&gt;&lt;br&gt;(Background Job)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#FF8C00;strokeColor=#CC7000;fontSize=11;size=15;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_compra_svc" value="&lt;b&gt;CompraService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="250" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_cotacao_svc" value="&lt;b&gt;CotacaoService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="440" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_custodia_svc" value="&lt;b&gt;CustodiaService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="630" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_ir_svc" value="&lt;b&gt;IRService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="820" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_mysql" value="&lt;b&gt;MySQL&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#e6d0de;strokeColor=#996185;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_kafka" value="&lt;b&gt;Kafka&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#FF8C00;strokeColor=#CC7000;fontSize=11;size=15;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="70" width="120" height="1250" as="geometry" />
+        </mxCell>
+
+        <!-- ======================== -->
+        <!-- MENSAGENS SEQUENCIAIS -->
+        <!-- ======================== -->
+
+        <!-- 1. Scheduler dispara -->
+        <mxCell id="m1" value="1. Dispara compra (dia util &gt;= 5/15/25)" style="html=1;verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#CC7000;" edge="1" parent="1">
+          <mxGeometry x="-0.02" relative="1" as="geometry">
+            <mxPoint x="120" y="170" as="sourcePoint" />
+            <mxPoint x="310" y="170" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 2. Buscar clientes ativos -->
+        <mxCell id="m2" value="2. Buscar clientes ativos + valor mensal" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#996185;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="220" as="sourcePoint" />
+            <mxPoint x="1070" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m2r" value="Lista de clientes com aportes" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#996185;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1070" y="250" as="sourcePoint" />
+            <mxPoint x="310" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 3. Calcular 1/3 -->
+        <mxCell id="m3_note" value="&lt;i&gt;3. Calcular 1/3 do valor mensal de cada cliente&lt;br&gt;Somar total consolidado por ativo segundo % da cesta&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="320" y="265" width="280" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- 4. Buscar cotacoes -->
+        <mxCell id="m4" value="4. Obter cotacao fechamento (ultimo pregao)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#9673a6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="330" as="sourcePoint" />
+            <mxPoint x="500" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m4_note" value="&lt;i&gt;Le arquivo COTAHIST&lt;br&gt;da pasta cotacoes/&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="440" y="340" width="120" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m4r" value="Cotacoes de fechamento por ticker" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#9673a6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="395" as="sourcePoint" />
+            <mxPoint x="310" y="395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 5. Verificar saldo master -->
+        <mxCell id="m5" value="5. Verificar saldo custodia master" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="430" as="sourcePoint" />
+            <mxPoint x="690" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m5r" value="Posicao residual master por ticker" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="460" as="sourcePoint" />
+            <mxPoint x="310" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 6. Calcular quantidade -->
+        <mxCell id="m6_note" value="&lt;i&gt;6. Calcular qtd a comprar por ticker:&lt;br&gt;(Valor Cesta por Ativo / Cotacao) - Saldo Master&lt;br&gt;Separar em Lote Padrao (x100) + Fracionario&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="320" y="475" width="290" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- 7. Executar compra na conta master -->
+        <mxCell id="m7" value="7. Registrar ordem de compra (conta master)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="555" as="sourcePoint" />
+            <mxPoint x="1070" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m7r" value="OK - Ordem registrada" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#996185;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1070" y="580" as="sourcePoint" />
+            <mxPoint x="310" y="580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 8. Atualizar custodia master -->
+        <mxCell id="m8" value="8. Atualizar custodia master (+compra)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="610" as="sourcePoint" />
+            <mxPoint x="690" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- LOOP: Distribuicao -->
+        <mxCell id="loop_dist" value="&lt;b&gt;LOOP&lt;/b&gt; - Para cada cliente ativo" style="shape=umlFrame;whiteSpace=wrap;html=1;width=170;height=20;fillColor=none;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="660" width="1050" height="350" as="geometry" />
+        </mxCell>
+
+        <!-- 9. Calcular distribuicao -->
+        <mxCell id="m9_note" value="&lt;i&gt;9. Calcular qtd por cliente:&lt;br&gt;(Aporte Cliente / Total Aportes) x Qtd Total Comprada&lt;br&gt;Arredondar para inteiro (truncar)&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="320" y="695" width="290" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 10. Transferir para custodia filhote -->
+        <mxCell id="m10" value="10. Transferir ativos para custodia filhote" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="770" as="sourcePoint" />
+            <mxPoint x="690" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 11. Atualizar preco medio -->
+        <mxCell id="m11" value="11. Atualizar preco medio do cliente" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="810" as="sourcePoint" />
+            <mxPoint x="1070" y="810" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 12. Registrar distribuicao -->
+        <mxCell id="m12" value="12. Registrar distribuicao no banco" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#996185;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="850" as="sourcePoint" />
+            <mxPoint x="1070" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 13. Calcular IR dedo-duro -->
+        <mxCell id="m13" value="13. Calcular IR dedo-duro (0,005% x valor)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="900" as="sourcePoint" />
+            <mxPoint x="880" y="900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 14. Publicar no Kafka -->
+        <mxCell id="m14" value="14. Publicar evento IR no topico Kafka" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#CC7000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="940" as="sourcePoint" />
+            <mxPoint x="1260" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="m14r" value="ACK" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#CC7000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1260" y="965" as="sourcePoint" />
+            <mxPoint x="880" y="965" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- FIM DO LOOP -->
+
+        <!-- 15. Descontar da custodia master -->
+        <mxCell id="m15" value="15. Descontar ativos distribuidos da custodia master" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="1050" as="sourcePoint" />
+            <mxPoint x="690" y="1050" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 16. Residuos -->
+        <mxCell id="m16_note" value="&lt;i&gt;16. Residuos (se houver) permanecem na custodia master&lt;br&gt;para serem considerados na proxima data de compra&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="320" y="1070" width="320" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 17. Persistir estado final -->
+        <mxCell id="m17" value="17. Persistir estado final (custodias + ordens)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#996185;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="1130" as="sourcePoint" />
+            <mxPoint x="1070" y="1130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 18. Retorno ao Scheduler -->
+        <mxCell id="m18" value="18. Compra concluida com sucesso" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#CC7000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="1180" as="sourcePoint" />
+            <mxPoint x="120" y="1180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="sequencia-rebalanceamento" name="Sequencia - Rebalanceamento">
+    <mxGraphModel dx="1600" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- TITULO -->
+        <mxCell id="title2" value="&lt;b&gt;Diagrama de Sequencia - Rebalanceamento&lt;/b&gt;&lt;br&gt;Disparado por mudanca na cesta ou desvio de proporcao" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="280" y="10" width="500" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- PARTICIPANTES -->
+        <mxCell id="p2_admin" value="&lt;b&gt;Admin / Trigger&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="120" height="950" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2_rebal_svc" value="&lt;b&gt;Rebalanceamento&lt;br&gt;Service&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="230" y="70" width="120" height="950" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2_custodia" value="&lt;b&gt;CustodiaService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="420" y="70" width="120" height="950" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2_cotacao" value="&lt;b&gt;CotacaoService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="610" y="70" width="120" height="950" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2_ir_svc" value="&lt;b&gt;IRService&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;size=15;" vertex="1" parent="1">
+          <mxGeometry x="800" y="70" width="120" height="950" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p2_kafka" value="&lt;b&gt;Kafka&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;participant=umlEntity;fillColor=#FF8C00;strokeColor=#CC7000;fontSize=11;size=15;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="990" y="70" width="120" height="950" as="geometry" />
+        </mxCell>
+
+        <!-- MENSAGENS -->
+
+        <mxCell id="r1" value="1. Alteracao da cesta Top Five (ou trigger desvio)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="170" as="sourcePoint" />
+            <mxPoint x="290" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r2" value="2. Obter cesta anterior + cesta nova" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="220" as="sourcePoint" />
+            <mxPoint x="290" y="250" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="220" />
+              <mxPoint x="350" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r2_note" value="&lt;i&gt;Identificar tickers que SAIRAM&lt;br&gt;e tickers que ENTRARAM na cesta&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="370" y="215" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- LOOP por cliente -->
+        <mxCell id="loop_rebal" value="&lt;b&gt;LOOP&lt;/b&gt; - Para cada cliente ativo" style="shape=umlFrame;whiteSpace=wrap;html=1;width=170;height=20;fillColor=none;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="280" width="870" height="600" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r3" value="3. Obter custodia do cliente" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="320" as="sourcePoint" />
+            <mxPoint x="480" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r3r" value="Posicao atual + preco medio" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="350" as="sourcePoint" />
+            <mxPoint x="290" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r4" value="4. Obter cotacoes atuais" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#9673a6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="390" as="sourcePoint" />
+            <mxPoint x="670" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r4r" value="Cotacoes fechamento" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeColor=#9673a6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="415" as="sourcePoint" />
+            <mxPoint x="290" y="415" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r5_note" value="&lt;i&gt;5. VENDER ativos que sairam da cesta&lt;br&gt;(ou que estao sobre-alocados no caso de desvio)&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="300" y="435" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r5" value="5. Registrar venda na custodia (ativos saindo)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="495" as="sourcePoint" />
+            <mxPoint x="480" y="495" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Verificacao IR -->
+        <mxCell id="r6_note" value="&lt;b&gt;6. Verificar regra IR:&lt;/b&gt;&lt;br&gt;Total vendas cliente no mes &gt; R$ 20.000?&lt;br&gt;Se SIM: Calcular 20% sobre lucro liquido&lt;br&gt;Lucro = Venda - (Qtd x Preco Medio)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;align=left;spacingLeft=5;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="515" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r7" value="7. Calcular IR (dedo-duro + IR venda se aplicavel)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="600" as="sourcePoint" />
+            <mxPoint x="860" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r8" value="8. Publicar IR no Kafka" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#CC7000;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="640" as="sourcePoint" />
+            <mxPoint x="1050" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r9_note" value="&lt;i&gt;9. COMPRAR novos ativos (ou sub-alocados)&lt;br&gt;com o valor obtido das vendas&lt;/i&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=12;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="300" y="670" width="260" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r9" value="9. Registrar compra na custodia (novos ativos)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="725" as="sourcePoint" />
+            <mxPoint x="480" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r10" value="10. Atualizar preco medio (novos ativos)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="760" as="sourcePoint" />
+            <mxPoint x="480" y="790" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="540" y="760" />
+              <mxPoint x="540" y="790" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="r11" value="11. Registrar rebalanceamento" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;fontSize=10;strokeWidth=1;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="840" as="sourcePoint" />
+            <mxPoint x="480" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- FIM LOOP -->
+
+        <mxCell id="r12" value="12. Rebalanceamento concluido" style="html=1;verticalAlign=bottom;endArrow=open;endFill=0;dashed=1;rounded=0;fontSize=10;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="930" as="sourcePoint" />
+            <mxPoint x="100" y="930" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
