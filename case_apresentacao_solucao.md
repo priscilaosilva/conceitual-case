@@ -91,6 +91,18 @@ Este documento resume e apresenta a solução proposta para o fluxo de avaliaç�
 4. Especificar contrato seguro para `API - tool layer` usado pelos agentes (audit trail)
 5. Construir POC do Agent Orchestrator com dataset limitados e revisar governança de uso de LLMs
 
+**CI/CD e Deploy**
+- **Pipeline**: usar GitHub Actions para CI (build, lint, testes unitários) e CD com conexão segura à conta AWS (OIDC/GitHub Actions roles) para deploy estruturado
+- **Estratégia de deploy**: adotar deploys canary para lambdas/serviços críticos, usando tráfego gradual + métricas automáticas para rollback (ex.: Lambda aliases + CloudWatch alarms / CodeDeploy Canary)
+- **Automação**: pipelines separados para hot path (.NET) e coleta/worker (Python), com etapas de infraestrutura como código (Terraform / CloudFormation) e validações automáticas de segurança (IaC scanning)
+- **Rollbacks e contingência**: gatilhos automáticos para rollback em caso de degradação de latência, erros 5xx ou aumento de taxa de SUSPECT; stages de pré-produção e testes canary em dados sintetizados
+
+**Uso de IA no desenvolvimento e testes**
+- **Assistência ao desenvolvimento**: uso de IA para geração de trechos de código, sugestão de refatoração e templates de testes unitários, com revisão humana obrigatória antes do merge
+- **Testes automatizados assistidos por IA**: gerar casos de teste, inputs edge-case e mocks para melhorar cobertura e detectar regressões de performance
+- **Qualidade e governança**: integrar verificações automáticas (security linters, dependency checks) com suporte de IA para priorizar findings; manter logs de prompts e versão das ferramentas de IA para auditoria
+- **Treinamento contínuo**: usar outputs das investigações e labels confirmadas para treinar modelos ML e melhorar prompts/agents; manter pipeline de MLOps controlado e versionado
+
 ---
 Arquivo fonte e referências: [case-priscilaosilva.md](case-priscilaosilva.md), [case_concentual-priscilaoliveira.md](case_concentual-priscilaoliveira.md), [contextosimportantes.md](contextosimportantes.md), desenho de referência: `desenho_solucao.png`.
 
